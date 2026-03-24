@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Campus Lost & Found System</title>
+    <link rel="stylesheet" href="css/styles.css" />
+    <script src="js/firebaseConfig.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+    <script src="js/app.js" defer></script>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <header class="nav">
+      <div class="container nav-inner">
+        <div class="brand">
+          <span class="brand-icon"></span>
+          <span>Campus Finder</span>
+        </div>
+        <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu">?</button>
+        <div class="nav-links" id="nav-links">
+          <a class="nav-link" href="#how-it-works">How It Works</a>
+          <a class="nav-link" href="#features">Features</a>
+          <a class="nav-link primary" href="login.html" id="nav-auth-btn">Sign In / Sign Up</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="main-content container fade-in">
+      <!-- Hero -->
+      <section class="hero slide-up">
+        <h1>Welcome to <span>Campus Finder</span></h1>
+        <p style="font-size: 1.2rem; margin-bottom: 24px; max-width: 800px; margin-left: auto; margin-right: auto;">
+          The smart, AI-powered way to recover lost items and return found ones securely within the campus community.
+        </p>
+        <div style="display: flex; gap: 16px; justify-content: center;">
+          <a href="login.html" class="btn btn-primary" style="width: auto; padding: 14px 32px; font-size: 1.1rem;">Sign In to Report Items</a>
+        </div>
+      </section>
+
+      <!-- Why It Exists -->
+      <section style="margin: 80px 0; text-align: center;" class="slide-up">
+        <h2 style="font-size: 2rem; margin-bottom: 16px;">Why Use Campus Finder?</h2>
+        <p style="color: var(--text-muted); max-width: 700px; margin: 0 auto; line-height: 1.6;">
+          Every year, thousands of items like IDs, electronics, and books are lost on campus. Our platform creates a centralized, secure hub where you can report what you've found or what you're missing. By using an AI matching system, we automatically connect owners with finders seamlessly, eliminating the hassle of campus-wide email blasts.
+        </p>
+      </section>
+
+      <!-- How It Works -->
+      <section id="how-it-works" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); margin: 80px 0; gap: 40px; text-align: left;">
+        <div class="card slide-up" style="border-top: 4px solid var(--danger);">
+          <h3 style="font-size: 1.5rem; color: var(--danger); margin-bottom: 16px;">If You Lost Something</h3>
+          <ul style="color: var(--text-muted); padding-left: 20px; display: flex; flex-direction: column; gap: 12px; line-height: 1.5;">
+            <li><strong>Step 1: Sign In</strong> - Log in securely using your College Google Account.</li>
+            <li><strong>Step 2: Submit a Report</strong> - Provide details like item name, description, and the last seen location from your dashboard.</li>
+            <li><strong>Step 3: Wait for AI Match</strong> - Our system constantly checks reported found items and notifies you if a high-confidence match is detected.</li>
+            <li><strong>Step 4: Verify & Meet</strong> - Start a secure chat to verify details, then arrange a safe handover.</li>
+          </ul>
+        </div>
+        
+        <div class="card slide-up" style="border-top: 4px solid var(--secondary);">
+          <h3 style="font-size: 1.5rem; color: var(--secondary); margin-bottom: 16px;">If You Found Something</h3>
+          <ul style="color: var(--text-muted); padding-left: 20px; display: flex; flex-direction: column; gap: 12px; line-height: 1.5;">
+            <li><strong>Step 1: Sign In</strong> - Log in securely.</li>
+            <li><strong>Step 2: Upload Details</strong> - Post an image and description of the item you found entirely from your dashboard.</li>
+            <li><strong>Step 3: AI Processing</strong> - The system cross-references your item with user lost reports locally in fractions of a second.</li>
+            <li><strong>Step 4: Return It</strong> - Answer the verification chat and schedule a meetup to return the property.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Features -->
+      <section id="features" style="margin: 80px 0; text-align: center;" class="slide-up">
+        <h2 style="font-size: 2rem; margin-bottom: 40px;">Platform Features</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px;">
+          <div class="card" style="padding: 24px;">
+            <div style="font-size: 2.5rem; margin-bottom: 16px;"></div>
+            <h4 style="margin-bottom: 8px;">AI Image & Text Matching</h4>
+            <p style="font-size: 0.9rem; color: var(--text-muted);">Smart algorithms match descriptions and photos to calculate match probability immediately.</p>
+          </div>
+          <div class="card" style="padding: 24px;">
+            <div style="font-size: 2.5rem; margin-bottom: 16px;"></div>
+            <h4 style="margin-bottom: 8px;">Secure Verification</h4>
+            <p style="font-size: 0.9rem; color: var(--text-muted);">Private chat ensures safe proof of ownership before meetups directly on the platform.</p>
+          </div>
+          <div class="card" style="padding: 24px;">
+            <div style="font-size: 2.5rem; margin-bottom: 16px;"></div>
+            <h4 style="margin-bottom: 8px;">Real-Time Updates</h4>
+            <p style="font-size: 0.9rem; color: var(--text-muted);">Track the status of your items straight from your dashboard instantly.</p>
+          </div>
+        </div>
+      </section>
+
+      <section style="text-align: center; margin: 80px 0; padding: 40px; background: var(--bg-main); border-radius: var(--radius-lg); border: 1px solid var(--border);" class="slide-up">
+        <h2 style="margin-bottom: 16px;">Ready to reunite items?</h2>
+        <p style="color: var(--text-muted); margin-bottom: 24px;">Join the platform and help keep our campus organized.</p>
+        <a href="login.html" class="btn btn-primary" style="width: auto;">Sign In Now</a>
+      </section>
+    </main>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const hamburger = document.getElementById('nav-hamburger');
+        const navLinks = document.getElementById('nav-links');
+        hamburger.addEventListener('click', () => {
+          navLinks.classList.toggle('active');
+        });
+        
+        const session = JSON.parse(localStorage.getItem("lf_session"));
+        const btn = document.getElementById("nav-auth-btn");
+        if (session && session.user_id) {
+          window.location.replace("dashboard.html");
+        }
+      });
+    </script>
+  </body>
+</html>

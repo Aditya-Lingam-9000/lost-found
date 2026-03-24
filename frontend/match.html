@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Match Details - Campus Finder</title>
+    <link rel="stylesheet" href="css/styles.css" />
+    <script src="js/firebaseConfig.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+    <script src="js/app.js" defer></script>
+  </head>
+  <body data-auth="required">
+    <header class="nav">
+      <div class="container nav-inner">
+        <a href="dashboard.html" class="brand">
+          <span class="brand-icon">?</span>
+          <span>Back to Dashboard</span>
+        </a>
+      </div>
+    </header>
+
+    <main class="main-content container fade-in" style="max-width: 900px;">
+      <div class="card slide-up">
+        <div style="text-align: center; margin-bottom: 32px;">
+          <h2 style="font-size: 2rem; margin-bottom: 8px;">AI Match Analysis</h2>
+          <p style="color: var(--text-muted);">Please review the details. If it's a match, you can start a chat to verify ownership.</p>
+        </div>
+
+        <div style="padding: 24px; background: var(--bg-alt); border-radius: var(--radius-lg); margin-bottom: 32px; text-align: center;">
+          <h3 style="margin-bottom: 12px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+            Confidence Score <span class="badge" id="match-status-badge" style="font-size: 1rem;">Pending</span>
+          </h3>
+          <h1 style="font-size: 3rem; color: var(--primary); margin-bottom: 16px;" id="match-score-text">0%</h1>
+          <div class="score-bar-container">
+            <div class="score-bar" id="match-score-bar"></div>
+          </div>
+        </div>
+
+        <div class="match-comparison">
+          <div class="match-item">
+            <h3 style="color: var(--danger); margin-bottom: 16px;">Lost Item</h3>
+            <div id="lost-img-container"><div class="item-thumb-placeholder" style="margin-bottom:16px;">?</div></div>
+            <h4 id="lost-title">Loading...</h4>
+            <p style="color: var(--text-muted); margin-top: 8px;" id="lost-desc"></p>
+            <p style="margin-top: 12px; font-weight: 500;" id="lost-loc"></p>
+          </div>
+
+          <div style="display: flex; align-items: center; justify-content: center; padding: 20px;">
+            <div style="width: 40px; height: 40px; background: var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">VS</div>
+          </div>
+
+          <div class="match-item">
+            <h3 style="color: var(--secondary); margin-bottom: 16px;">Found Item</h3>
+            <div id="found-img-container"><div class="item-thumb-placeholder" style="margin-bottom:16px;">??</div></div>
+            <h4 id="found-title">Loading...</h4>
+            <p style="color: var(--text-muted); margin-top: 8px;" id="found-desc"></p>
+            <p style="margin-top: 12px; font-weight: 500;" id="found-loc"></p>
+          </div>
+        </div>
+
+        <div style="margin-top: 40px; text-align: center;">
+          <button class="btn btn-primary" id="start-chat-btn" style="padding: 16px 48px; font-size: 1.1rem; width: auto;" disabled>Start Verification Chat</button>
+          <p style="margin-top: 12px; color: var(--text-muted); font-size: 0.9rem;" id="chat-helper-text">Chat becomes available if match exceeds threshold.</p>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard - Campus Finder</title>
+    <link rel="stylesheet" href="css/styles.css" />
+    <script src="js/firebaseConfig.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+    <script src="js/app.js" defer></script>
+  </head>
+  <body data-auth="required">
+    <!-- Navbar -->
+    <header class="nav">
+      <div class="container nav-inner">
+        <a href="index.html" class="brand">
+          <span class="brand-icon"></span>
+          <span>Campus Finder</span>
+        </a>
+        <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle menu">?</button>
+        <div class="nav-links" id="nav-links">
+          <a class="nav-link" href="index.html">Home</a>
+          <a class="nav-link active" href="dashboard.html">Dashboard</a>
+          <button class="nav-link primary" id="logout-btn" style="border:none; cursor:pointer;">Sign Out</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="main-content container fade-in">
+      <div class="card slide-up" style="margin-bottom: 40px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+        <div style="display: flex; gap: 16px; align-items: center;">
+          <div style="width: 60px; height: 60px; background: var(--primary-light); color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 700;">
+            ID
+          </div>
+          <div>
+            <h2 style="font-size: 1.5rem; margin-bottom: 4px;" id="profile-identifier">User</h2>
+            <p style="color: var(--text-muted); font-size: 0.9rem;" id="profile-user-id">U0000</p>
+          </div>
+        </div>
+        <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+          <button class="btn btn-primary" id="btn-toggle-lost" style="background: var(--danger); width: auto;">+ Report Lost</button>
+          <button class="btn btn-primary" id="btn-toggle-found" style="background: var(--secondary); width: auto;">+ Report Found</button>
+        </div>
+      </div>
+
+      <!-- Hidden Forms that show when clicking report buttons -->
+      <section id="report-forms-container" style="display:none; margin-bottom: 40px;" class="slide-up">
+        <div class="grid-2">
+          <!-- Lost Form -->
+          <div class="card" id="lost-form-container" style="display:none; border-top: 4px solid var(--danger);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+              <h2 style="color: var(--danger);">Report Lost Item</h2>
+              <button class="btn-close-form" style="font-size: 1.5rem; color: var(--text-muted); cursor:pointer; border:none; background:none;">&times;</button>
+            </div>
+            <form id="lost-form">
+              <div class="form-group">
+                <label>Item Name</label>
+                <input type="text" name="item_name" class="form-control" placeholder="e.g. Blue Hydroflask" required />
+              </div>
+              <div class="form-group">
+                <label>Description</label>
+                <textarea name="description" class="form-control" rows="3" placeholder="Provide details (scratches, stickers, etc.)" required></textarea>
+              </div>
+              <div class="form-group">
+                <label>Last Seen Location</label>
+                <input type="text" name="location" class="form-control" placeholder="e.g. Central Library" required />
+              </div>
+              <div class="form-group">
+                <label>Date Lost</label>
+                <input type="date" name="date" class="form-control" required />
+              </div>
+              <div class="form-group">
+                <label>Reference Image (Optional)</label>
+                <input type="file" name="lost_image" id="lost-image" class="form-control" accept="image/*" />
+              </div>
+              <button type="submit" class="btn btn-primary" style="background: var(--danger);">Submit Lost Report</button>
+            </form>
+          </div>
+          
+          
+
+          <!-- Found Form -->
+          <div class="card" id="found-form-container" style="display:none; border-top: 4px solid var(--secondary);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+              <h2 style="color: var(--secondary);">Report Found Item</h2>
+              <button class="btn-close-form" style="font-size: 1.5rem; color: var(--text-muted); cursor:pointer; border:none; background:none;">&times;</button>
+            </div>
+            <form id="found-form">
+              <div class="form-group">
+                <label>Item Name</label>
+                <input type="text" name="item_name" class="form-control" placeholder="e.g. Wireless Earbuds" required />
+              </div>
+              <div class="form-group">
+                <label>Description</label>
+                <textarea name="description" class="form-control" rows="3" placeholder="Condition, color, brand..." required></textarea>
+              </div>
+              <div class="form-group">
+                <label>Location Found</label>
+                <input type="text" name="location" class="form-control" placeholder="e.g. Cafeteria Table 4" required />
+              </div>
+              <div class="form-group">
+                <label>Date Found</label>
+                <input type="date" name="date" class="form-control" required />
+              </div>
+              <div class="form-group">
+                <label>Image of Item (Required)</label>
+                <input type="file" name="found_image" id="found-image" class="form-control" accept="image/*" required />
+              </div>
+              <button type="submit" class="btn btn-primary" style="background: var(--secondary);">Submit Found Report</button>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <!-- AI Matches -->
+      <section style="margin-bottom: 48px;" class="slide-up">
+        <div class="section-header">
+          <h2>AI Suggested Matches</h2>
+        </div>
+        <div class="items-grid" id="myMatchesList">
+          <p style="color: var(--text-muted); grid-column: 1 / -1;">No pending matches found yet. We will notify you when a match is detected.</p>
+        </div>
+      </section>
+
+      <div class="grid-2">
+        <section class="slide-up" style="animation-delay: 0.1s;">
+          <div class="section-header">
+            <h2>Your Pending Lost Items</h2>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 16px;" id="myLostList">
+            <!-- Populated by JS -->
+          </div>
+        </section>
+
+        <section class="slide-up" style="animation-delay: 0.2s;">
+          <div class="section-header">
+            <h2>Your Pending Found Items</h2>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 16px;" id="myFoundList">
+            <!-- Populated by JS -->
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const hamburger = document.getElementById('nav-hamburger');
+        const navLinks = document.getElementById('nav-links');
+        if(hamburger) {
+          hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+          });
+        }
+        
+        // Show/Hide forms logic
+        const formsContainer = document.getElementById('report-forms-container');
+        const lostContainer = document.getElementById('lost-form-container');
+        const foundContainer = document.getElementById('found-form-container');
+        
+        
+        const btnLost = document.getElementById('btn-toggle-lost');
+        const btnFound = document.getElementById('btn-toggle-found');
+        const btnCloses = document.querySelectorAll('.btn-close-form');
+
+        const updateFormsDisplay = () => {
+          const showLost = lostContainer.style.display !== 'none';
+          const showFound = foundContainer.style.display !== 'none';
+          
+          if(showLost || showFound) {
+            formsContainer.style.display = 'block';
+          } else {
+            formsContainer.style.display = 'none';
+          }
+          
+          
+        };
+
+        if(btnLost) {
+          btnLost.addEventListener('click', () => {
+            lostContainer.style.display = lostContainer.style.display === 'none' ? 'block' : 'none';
+            updateFormsDisplay();
+            if(lostContainer.style.display === 'block') lostContainer.scrollIntoView({behavior: 'smooth'});
+          });
+        }
+        
+        if(btnFound) {
+          btnFound.addEventListener('click', () => {
+            foundContainer.style.display = foundContainer.style.display === 'none' ? 'block' : 'none';
+            updateFormsDisplay();
+            if(foundContainer.style.display === 'block') foundContainer.scrollIntoView({behavior: 'smooth'});
+          });
+        }
+        
+        btnCloses.forEach(btn => {
+           btn.addEventListener('click', (e) => {
+              e.target.closest('.card').style.display = 'none';
+              updateFormsDisplay();
+           });
+        });
+      });
+    </script>
+  </body>
+</html>
