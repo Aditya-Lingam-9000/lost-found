@@ -2,22 +2,20 @@ services:
   - type: web
     name: lost-found-backend
     env: python
+    plan: free
     rootDir: backend
     buildCommand: pip install -r requirements.txt
     startCommand: gunicorn app:app --bind 0.0.0.0:$PORT
-    disk:
-      name: lost-found-data
-      mountPath: /var/data
-      sizeGB: 1
     envVars:
       - key: PYTHON_VERSION
         value: 3.11.10
       - key: APP_STORAGE_ROOT
-        value: /var/data
+        value: /tmp/lost-found-data
 
   - type: web
     name: lost-found-frontend
     env: static
+    plan: free
     rootDir: frontend
     buildCommand: npm ci && npm run build
     staticPublishPath: dist
