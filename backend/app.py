@@ -448,8 +448,11 @@ def submit_lost():
     with open(os.path.join(DB_DIR, 'lost.txt'), 'a', encoding='utf-8') as f:
         f.write(json.dumps(record) + "\n")
         
-    # Auto-run matching in the background/inline after newly lost item
-    run_matching()
+    # Auto-run matching. Do not fail submission if matcher has a transient issue.
+    try:
+        run_matching()
+    except Exception as e:
+        app.logger.exception("run_matching failed after submit_lost: %s", e)
         
     return jsonify({"success": True, "message": "Lost item safely reported.", "lost_id": lost_id}), 201
 
@@ -503,20 +506,27 @@ def submit_found():
     with open(os.path.join(DB_DIR, 'found.txt'), 'a', encoding='utf-8') as f:
         f.write(json.dumps(record) + "\n")
         
-    # Auto-run matching in the background/inline after newly found item
-    run_matching()
+    # Auto-run matching. Do not fail submission if matcher has a transient issue.
+    try:
+        run_matching()
+    except Exception as e:
+        app.logger.exception("run_matching failed after submit_found: %s", e)
 
-    audit_service.log_event(
-        event_type='FOUND_REPORTED',
-        actor_id=user_id,
-        entity_type='found_item',
-        entity_id=found_id,
-        metadata={
-            'item_priority': priority,
-            'requires_security_review': record['requires_security_review'],
-            'report_channel': 'standard'
-        }
-    )
+    # Audit is non-blocking for primary report submission.
+    try:
+        audit_service.log_event(
+            event_type='FOUND_REPORTED',
+            actor_id=user_id,
+            entity_type='found_item',
+            entity_id=found_id,
+            metadata={
+                'item_priority': priority,
+                'requires_security_review': record['requires_security_review'],
+                'report_channel': 'standard'
+            }
+        )
+    except Exception as e:
+        app.logger.exception("audit_service failed after submit_found: %s", e)
         
     return jsonify({"success": True, "message": "Found item safely reported.", "found_id": found_id}), 201
 
@@ -569,19 +579,25 @@ def submit_found_quick():
     with open(os.path.join(DB_DIR, 'found.txt'), 'a', encoding='utf-8') as f:
         f.write(json.dumps(record) + "\n")
 
-    run_matching()
+    try:
+        run_matching()
+    except Exception as e:
+        app.logger.exception("run_matching failed after submit_found_quick: %s", e)
 
-    audit_service.log_event(
-        event_type='FOUND_QUICK_REPORTED',
-        actor_id=user_id,
-        entity_type='found_item',
-        entity_id=found_id,
-        metadata={
-            'item_priority': priority,
-            'requires_security_review': record['requires_security_review'],
-            'report_channel': 'quick'
-        }
-    )
+    try:
+        audit_service.log_event(
+            event_type='FOUND_QUICK_REPORTED',
+            actor_id=user_id,
+            entity_type='found_item',
+            entity_id=found_id,
+            metadata={
+                'item_priority': priority,
+                'requires_security_review': record['requires_security_review'],
+                'report_channel': 'quick'
+            }
+        )
+    except Exception as e:
+        app.logger.exception("audit_service failed after submit_found_quick: %s", e)
 
     return jsonify({
         "success": True,
