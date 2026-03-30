@@ -4,15 +4,18 @@ import {
   auth,
   provider,
   signInWithPopup,
+  signInWithRedirect,
 } from "../utils/config/firebaseConfig";
 
 export default function Login() {
   const navigate = useNavigate();
   const [isLogingIn, setIsLogingIn] = useState(false);
+  const [loginError, setLoginError] = useState("");
 
   const handleLogin = async () => {
     try {
       setIsLogingIn(true);
+      setLoginError("");
       await signInWithPopup(auth, provider);
 
       // 1.5s attractive animation
@@ -21,6 +24,28 @@ export default function Login() {
       }, 1500);
     } catch (error) {
       console.error("Login failed:", error);
+
+      // On some browsers/hosts popup can be blocked or instantly closed.
+      if (
+        error?.code === "auth/popup-blocked" ||
+        error?.code === "auth/popup-closed-by-user"
+      ) {
+        try {
+          await signInWithRedirect(auth, provider);
+          return;
+        } catch (redirectError) {
+          console.error("Redirect login failed:", redirectError);
+        }
+      }
+
+      if (error?.code === "auth/unauthorized-domain") {
+        setLoginError(
+          "This website domain is not authorized in Firebase Authentication settings."
+        );
+      } else {
+        setLoginError(error?.message || "Google login failed. Please try again.");
+      }
+
       setIsLogingIn(false);
     }
   };
@@ -62,6 +87,19 @@ export default function Login() {
           <div style={{ fontSize: "3.5rem", marginBottom: "16px" }}></div>
           <h2 className="page-gradient-title">Welcome Back</h2>
           <p>Sign in to post items, view AI matches, and verify owners.</p>
+
+          {loginError && (
+            <p
+              style={{
+                marginTop: "12px",
+                color: "#b91c1c",
+                fontSize: "0.92rem",
+                lineHeight: 1.4,
+              }}
+            >
+              {loginError}
+            </p>
+          )}
 
           <button
             onClick={handleLogin}
