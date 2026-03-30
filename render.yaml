@@ -15,7 +15,6 @@ services:
   - type: web
     name: lost-found-frontend
     env: static
-    plan: free
     rootDir: frontend
     buildCommand: npm ci && npm run build
     staticPublishPath: dist
