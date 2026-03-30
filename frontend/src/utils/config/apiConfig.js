@@ -1,6 +1,11 @@
 const DEFAULT_API_BASE_URL = "http://127.0.0.1:5000";
 
-const envBaseUrl = (import.meta.env.VITE_API_BASE_URL || DEFAULT_API_BASE_URL).trim();
+const rawBaseUrl = (import.meta.env.VITE_API_BASE_URL || DEFAULT_API_BASE_URL).trim();
+
+const envBaseUrl =
+  rawBaseUrl.startsWith("http://") || rawBaseUrl.startsWith("https://")
+    ? rawBaseUrl
+    : `https://${rawBaseUrl}`;
 
 export const API_BASE_URL = envBaseUrl.replace(/\/+$/, "");
 
