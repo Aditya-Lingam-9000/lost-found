@@ -30,8 +30,28 @@ logs
 
 # Caches
 .eslintcache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Python environments
+.venv/
+venv/
+backend/venv/
+
+# Python tooling
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Render/Deployment local env files
+*.env
+frontend/.env*
+backend/.env*
 
 # Build outputs
 dist/
 build/
 out/
+frontend/dist/

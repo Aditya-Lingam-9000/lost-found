@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: lost-found-backend
+    runtime: python
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT
+    disks:
+      - name: lost-found-data
+        mountPath: /var/data
+        sizeGB: 1
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.10
+      - key: APP_STORAGE_ROOT
+        value: /var/data
+
+  - type: web
+    name: lost-found-frontend
+    runtime: static
+    rootDir: frontend
+    buildCommand: npm ci && npm run build
+    staticPublishPath: dist
+    pullRequestPreviewsEnabled: false
+    envVars:
+      - key: VITE_API_BASE_URL
+        fromService:
+          type: web
+          name: lost-found-backend
+          property: url

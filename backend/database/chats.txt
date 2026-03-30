@@ -1,0 +1,6 @@
+{"chat_id": "C0001", "user1_id": "VMCRr0RsLATbTiWAEs6x2E2Lxiw1", "user2_id": "iQQv3U2ujabQmVz36yGPGuH42QZ2", "match_id": "M0001", "created_at": "2026-03-29T07:11:29.600150Z"}
+{"chat_id": "C0002", "user1_id": "iQQv3U2ujabQmVz36yGPGuH42QZ2", "user2_id": "VMCRr0RsLATbTiWAEs6x2E2Lxiw1", "match_id": "M0002", "created_at": "2026-03-29T09:02:11.865369Z"}
+{"chat_id": "C0003", "user1_id": "iQQv3U2ujabQmVz36yGPGuH42QZ2", "user2_id": "VMCRr0RsLATbTiWAEs6x2E2Lxiw1", "match_id": "M0003", "created_at": "2026-03-29T12:19:37.703586Z"}
+{"chat_id": "C0004", "user1_id": "VMCRr0RsLATbTiWAEs6x2E2Lxiw1", "user2_id": "iQQv3U2ujabQmVz36yGPGuH42QZ2", "match_id": "M0004", "created_at": "2026-03-29T13:17:03.031391Z"}
+{"chat_id": "C0005", "user1_id": "iQQv3U2ujabQmVz36yGPGuH42QZ2", "user2_id": "VMCRr0RsLATbTiWAEs6x2E2Lxiw1", "match_id": "M0005", "created_at": "2026-03-30T04:52:25.498096Z"}
+{"chat_id": "C0006", "user1_id": "VMCRr0RsLATbTiWAEs6x2E2Lxiw1", "user2_id": "iQQv3U2ujabQmVz36yGPGuH42QZ2", "match_id": "M0006", "created_at": "2026-03-30T04:59:38.490461Z"}
