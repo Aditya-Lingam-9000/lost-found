@@ -16,11 +16,12 @@ def get_image_score(image_path1: str, image_path2: str) -> float:
         return 0.0
         
     try:
-        # Base path of the backend directory
+        # Resolve paths from the same storage root used by app.py.
         base_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        
-        full_path1 = os.path.join(base_path, image_path1)
-        full_path2 = os.path.join(base_path, image_path2)
+        storage_root = os.environ.get('APP_STORAGE_ROOT', base_path)
+
+        full_path1 = image_path1 if os.path.isabs(image_path1) else os.path.join(storage_root, image_path1.lstrip('/\\'))
+        full_path2 = image_path2 if os.path.isabs(image_path2) else os.path.join(storage_root, image_path2.lstrip('/\\'))
         
         if not os.path.exists(full_path1) or not os.path.exists(full_path2):
             return 0.0

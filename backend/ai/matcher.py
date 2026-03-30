@@ -5,7 +5,10 @@ from .text_matching import get_text_score
 from .image_matching import get_image_score
 from utils.email_service import send_match_email
 
-DB_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'database')
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+STORAGE_ROOT = os.environ.get('APP_STORAGE_ROOT', BASE_DIR)
+DB_DIR = os.path.join(STORAGE_ROOT, 'database')
+os.makedirs(DB_DIR, exist_ok=True)
 
 def get_next_id(file_path, prefix):
     if not os.path.exists(file_path):
