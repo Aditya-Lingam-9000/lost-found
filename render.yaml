@@ -15,8 +15,9 @@ services:
       - key: APP_STORAGE_ROOT
         value: /var/data
 
-  - type: static
+  - type: web
     name: lost-found-frontend
+    env: static
     rootDir: frontend
     buildCommand: npm ci && npm run build
     staticPublishPath: dist
