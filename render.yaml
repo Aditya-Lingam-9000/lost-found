@@ -20,7 +20,4 @@ services:
     staticPublishPath: dist
     envVars:
       - key: VITE_API_BASE_URL
-        fromService:
-          type: web
-          name: lost-found-backend
-          property: host
+        value: https://lost-found-backend-uhag.onrender.com

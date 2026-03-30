@@ -2,10 +2,18 @@ const DEFAULT_API_BASE_URL = "http://127.0.0.1:5000";
 
 const rawBaseUrl = (import.meta.env.VITE_API_BASE_URL || DEFAULT_API_BASE_URL).trim();
 
+const normalizedHost =
+  rawBaseUrl &&
+  !rawBaseUrl.startsWith("http://") &&
+  !rawBaseUrl.startsWith("https://") &&
+  !rawBaseUrl.includes(".")
+    ? `${rawBaseUrl}.onrender.com`
+    : rawBaseUrl;
+
 const envBaseUrl =
-  rawBaseUrl.startsWith("http://") || rawBaseUrl.startsWith("https://")
-    ? rawBaseUrl
-    : `https://${rawBaseUrl}`;
+  normalizedHost.startsWith("http://") || normalizedHost.startsWith("https://")
+    ? normalizedHost
+    : `https://${normalizedHost}`;
 
 export const API_BASE_URL = envBaseUrl.replace(/\/+$/, "");
 
