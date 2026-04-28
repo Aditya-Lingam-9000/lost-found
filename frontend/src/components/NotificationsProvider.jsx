@@ -50,7 +50,9 @@ export function NotificationsProvider({ children }) {
   const [notifications, setNotifications] = useState([]);
   const [unreadCount, setUnreadCount] = useState(0);
   const [isReady, setIsReady] = useState(false);
-  const knownNotificationIds = useRef(new Set());
+  const knownNotificationIds = useRef(new Set(
+    (() => { try { return JSON.parse(localStorage.getItem('knownNotificationIds') || '[]'); } catch { return []; } })()
+  ));
   const pushCleanupRef = useRef(null);
 
   const syncNotifications = useCallback(async (currentUserId, scheduleDesktopAlerts = false) => {
@@ -70,6 +72,8 @@ export function NotificationsProvider({ children }) {
 
       const nextNotifications = data.notifications || [];
       const nextIds = new Set(nextNotifications.map((item) => item.notification_id));
+
+      localStorage.setItem('knownNotificationIds', JSON.stringify([...nextIds]));
 
       if (scheduleDesktopAlerts && Capacitor.isNativePlatform() && document.visibilityState === "visible") {
         const newNotifications = nextNotifications.filter((item) => !knownNotificationIds.current.has(item.notification_id));
@@ -218,10 +222,10 @@ export function NotificationsProvider({ children }) {
       const actionId = action.actionId || action.notification?.data?.action_primary;
 
       if (actionId === "check_now" || action.actionId === "tap") {
-        navigate("/notifications");
         if (notificationId) {
           await markNotificationRead(notificationId);
         }
+        window.location.href = `/notifications?notification_id=${notificationId || ""}`;
       } else if (actionId === "check_later") {
         if (notificationId) {
           await dismissNotification(notificationId);
@@ -234,7 +238,7 @@ export function NotificationsProvider({ children }) {
       const actionId = action.actionId;
 
       if (actionId === "check_now" || actionId === "tap") {
-        navigate(`/notifications?notification_id=${notificationId || ""}`);
+        window.location.href = `/notifications?notification_id=${notificationId || ""}`;
       } else if (actionId === "check_later") {
         if (notificationId) {
           await dismissNotification(notificationId);

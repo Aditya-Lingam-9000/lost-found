@@ -1286,6 +1286,9 @@ def delete_item():
                 for line in chats_to_keep:
                     f.write(line)
                     
+        for mid in deleted_match_ids:
+            notification_service.update_match_notifications(mid, match_state='resolved')
+            
         return jsonify({"success": True, "message": "Item deleted."}), 200
         
     return jsonify({"success": False, "message": "Item not found or unauthorized."}), 403
