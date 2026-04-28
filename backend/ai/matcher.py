@@ -4,11 +4,13 @@ from datetime import datetime
 from .text_matching import get_text_score
 from .image_matching import get_image_score
 from utils.email_service import send_match_email
+from services.notification_service import NotificationService
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 STORAGE_ROOT = os.environ.get('APP_STORAGE_ROOT', BASE_DIR)
 DB_DIR = os.path.join(STORAGE_ROOT, 'database')
 os.makedirs(DB_DIR, exist_ok=True)
+notification_service = NotificationService(DB_DIR)
 
 def get_next_id(file_path, prefix):
     if not os.path.exists(file_path):
@@ -178,6 +180,11 @@ def run_matching():
                 # Append records
                 with open(matches_file, 'a', encoding='utf-8') as f:
                     f.write(json.dumps(match_record) + "\n")
+
+                try:
+                    notification_service.create_match_notifications(match_record, lost, found)
+                except Exception as notification_error:
+                    print(f"Warning: failed to create notifications for {match_id}: {notification_error}")
                 
                 with open(chats_file, 'a', encoding='utf-8') as f:
                     f.write(json.dumps(chat_record) + "\n")

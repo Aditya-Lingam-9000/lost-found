@@ -1,10 +1,13 @@
 ﻿import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { Capacitor } from "@capacitor/core";
+import { FirebaseAuthentication } from "@capacitor-firebase/authentication";
+import { GoogleAuthProvider, signInWithCredential } from "firebase/auth";
 import {
   auth,
   provider,
   signInWithPopup,
-  signInWithRedirect,
 } from "../utils/config/firebaseConfig";
 
 export default function Login() {
@@ -12,10 +15,58 @@ export default function Login() {
   const [isLogingIn, setIsLogingIn] = useState(false);
   const [loginError, setLoginError] = useState("");
 
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setIsLogingIn(false);
+        navigate("/dashboard");
+      }
+    });
+
+    return () => unsubscribe();
+  }, [navigate]);
+
   const handleLogin = async () => {
     try {
       setIsLogingIn(true);
       setLoginError("");
+
+      if (Capacitor.isNativePlatform()) {
+        let nativeResult;
+
+        try {
+          nativeResult = await FirebaseAuthentication.signInWithGoogle({
+            useCredentialManager: true,
+          });
+        } catch (nativeAuthError) {
+          const message = String(nativeAuthError?.message || "").toLowerCase();
+          const code = String(nativeAuthError?.code || "").toLowerCase();
+          const noCredentialAvailable =
+            message.includes("no credentials available") ||
+            message.includes("no credential") ||
+            code.includes("no_credentials");
+
+          if (!noCredentialAvailable) {
+            throw nativeAuthError;
+          }
+
+          // Fallback to classic Google account chooser when Credential Manager has no eligible credential.
+          nativeResult = await FirebaseAuthentication.signInWithGoogle({
+            useCredentialManager: false,
+          });
+        }
+
+        const idToken = nativeResult?.credential?.idToken || null;
+
+        if (!idToken) {
+          throw new Error("Native Google sign-in did not return a usable token.");
+        }
+
+        const firebaseCredential = GoogleAuthProvider.credential(idToken);
+        await signInWithCredential(auth, firebaseCredential);
+        return;
+      }
+
       await signInWithPopup(auth, provider);
 
       // 1.5s attractive animation
@@ -25,22 +76,16 @@ export default function Login() {
     } catch (error) {
       console.error("Login failed:", error);
 
-      // On some browsers/hosts popup can be blocked or instantly closed.
-      if (
-        error?.code === "auth/popup-blocked" ||
-        error?.code === "auth/popup-closed-by-user"
-      ) {
-        try {
-          await signInWithRedirect(auth, provider);
-          return;
-        } catch (redirectError) {
-          console.error("Redirect login failed:", redirectError);
-        }
-      }
-
       if (error?.code === "auth/unauthorized-domain") {
         setLoginError(
           "This website domain is not authorized in Firebase Authentication settings."
+        );
+      } else if (
+        error?.code === "auth/popup-blocked" ||
+        error?.code === "auth/popup-closed-by-user"
+      ) {
+        setLoginError(
+          "Google popup was blocked/closed. Please try again and keep the popup open."
         );
       } else {
         setLoginError(error?.message || "Google login failed. Please try again.");

@@ -83,7 +83,14 @@ export default function Profile() {
     }
   };
 
-  if (!user) return <p>Loading...</p>;
+  if (!user) {
+    return (
+      <div className="full-screen-loader">
+        <div className="spinner-ring"></div>
+        <p className="loading-text">LOADING PROFILE</p>
+      </div>
+    );
+  }
 
   return (
     <>

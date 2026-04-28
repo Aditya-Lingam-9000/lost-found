@@ -1,0 +1,10 @@
+{
+  "appId": "com.campusfinder.app",
+  "appName": "Campus Finder",
+  "webDir": "dist",
+  "plugins": {
+    "FirebaseAuthentication": {
+      "providers": ["google.com"]
+    }
+  }
+}

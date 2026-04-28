@@ -1,17 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
+import { useNotifications } from "./NotificationsProvider";
 
 const MOBILE_NAV_ITEMS = [
-  {
-    to: "/",
-    label: "Home",
-    icon: (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M3 10.5L12 3l9 7.5" />
-        <path d="M6 9.5V20h12V9.5" />
-        <path d="M10 20v-5h4v5" />
-      </svg>
-    ),
-  },
   {
     to: "/dashboard",
     label: "Dashboard",
@@ -47,6 +37,16 @@ const MOBILE_NAV_ITEMS = [
     ),
   },
   {
+    to: "/notifications",
+    label: "Alerts",
+    icon: (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M15 17H5l1.2-1.2A2.2 2.2 0 0 0 7 14.3V11a5 5 0 1 1 10 0v3.3a2.2 2.2 0 0 0 .8 1.7L19 17h-4" />
+        <path d="M10 19a2 2 0 0 0 4 0" />
+      </svg>
+    ),
+  },
+  {
     to: "/profile",
     label: "Profile",
     icon: (
@@ -56,10 +56,21 @@ const MOBILE_NAV_ITEMS = [
       </svg>
     ),
   },
+  {
+    to: "/settings",
+    label: "Settings",
+    icon: (
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="12" r="3" />
+        <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z" />
+      </svg>
+    ),
+  },
 ];
 
 export default function MobileBottomNav() {
   const location = useLocation();
+  const { unreadCount } = useNotifications();
 
   if (location.pathname === "/login") {
     return null;
@@ -82,6 +93,9 @@ export default function MobileBottomNav() {
           >
             <span className="bottom-nav-icon" aria-hidden="true">
               {item.icon}
+              {item.to === "/notifications" && unreadCount > 0 && (
+                <span className="nav-badge">{unreadCount > 9 ? "9+" : unreadCount}</span>
+              )}
             </span>
             <span className="bottom-nav-label">{item.label}</span>
           </Link>

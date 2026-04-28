@@ -13,6 +13,7 @@ from ai.text_matching import get_text_score
 from services.audit_service import AuditService
 from services.incentive_service import IncentiveService
 from services.risk_engine import RiskEngine
+from services.notification_service import NotificationService
 
 app = Flask(__name__)
 # Enable CORS for React frontend connecting to this backend
@@ -33,6 +34,7 @@ os.makedirs(DB_DIR, exist_ok=True)
 audit_service = AuditService(DB_DIR)
 incentive_service = IncentiveService(DB_DIR)
 risk_engine = RiskEngine(DB_DIR)
+notification_service = NotificationService(DB_DIR)
 
 HIGH_VALUE_KEYWORDS = {
     "wallet", "laptop", "phone", "mobile", "watch", "tablet", "id", "idcard",
@@ -316,6 +318,12 @@ def update_items_for_match_status(match_id, new_item_status):
     write_jsonl_records('lost.txt', lost_items)
     write_jsonl_records('found.txt', found_items)
     return {'lost_id': lost_id, 'found_id': found_id}
+
+
+def get_notification_delivery_state(notification):
+    if notification.get('match_state') in {'verified', 'resolved'}:
+        return 'archived'
+    return notification.get('status', 'unread')
 
 
 def evaluate_private_answers(expected_private_proof, provided_answers):
@@ -764,6 +772,7 @@ def verify_match_code():
         return jsonify({"success": False, "message": "Match not found"}), 404
 
     write_jsonl_records('matches.txt', matches)
+    notification_service.update_match_notifications(match_id, match_state='verified', verification_status='verified')
     audit_service.log_event(
         event_type='MATCH_CODE_VERIFIED',
         actor_id=actor_id,
@@ -1142,6 +1151,76 @@ def get_my_data():
         "matches": my_matches
     }), 200
 
+
+@app.route('/notifications', methods=['GET'])
+def get_notifications():
+    user_id = request.args.get('user_id')
+    if not user_id:
+        return jsonify({"success": False, "message": "user_id is required"}), 400
+
+    notifications = notification_service.get_user_notifications(user_id)
+    return jsonify({
+        "success": True,
+        "notifications": notifications,
+        "unread_count": notification_service.get_unread_count(user_id),
+    }), 200
+
+
+@app.route('/notifications/unread_count', methods=['GET'])
+def get_notifications_unread_count():
+    user_id = request.args.get('user_id')
+    if not user_id:
+        return jsonify({"success": False, "message": "user_id is required"}), 400
+
+    return jsonify({
+        "success": True,
+        "unread_count": notification_service.get_unread_count(user_id),
+    }), 200
+
+
+@app.route('/notifications/register_device', methods=['POST'])
+def register_notification_device():
+    data = request.json or {}
+    user_id = data.get('user_id')
+    token = data.get('token')
+    platform = data.get('platform', 'android')
+
+    if not user_id or not token:
+        return jsonify({"success": False, "message": "user_id and token required"}), 400
+
+    record = notification_service.register_device(user_id, token, platform=platform, enabled=True)
+    return jsonify({"success": True, "device": record}), 201
+
+
+@app.route('/notifications/mark_read', methods=['POST'])
+def mark_notification_read():
+    data = request.json or {}
+    notification_id = data.get('notification_id')
+    user_id = data.get('user_id')
+
+    if not notification_id or not user_id:
+        return jsonify({"success": False, "message": "notification_id and user_id required"}), 400
+
+    if notification_service.mark_read(notification_id, user_id):
+        return jsonify({"success": True, "message": "Notification marked as read"}), 200
+
+    return jsonify({"success": False, "message": "Notification not found"}), 404
+
+
+@app.route('/notifications/dismiss', methods=['POST'])
+def dismiss_notification():
+    data = request.json or {}
+    notification_id = data.get('notification_id')
+    user_id = data.get('user_id')
+
+    if not notification_id or not user_id:
+        return jsonify({"success": False, "message": "notification_id and user_id required"}), 400
+
+    if notification_service.dismiss(notification_id, user_id):
+        return jsonify({"success": True, "message": "Notification dismissed"}), 200
+
+    return jsonify({"success": False, "message": "Notification not found"}), 404
+
 @app.route('/delete_item', methods=['POST'])
 def delete_item():
     data = request.json
@@ -1288,6 +1367,7 @@ def resolve_match():
                     f.write(json.dumps(m) + "\n")
 
             update_items_for_match_status(match_id, 'closed')
+            notification_service.update_match_notifications(match_id, match_state='resolved')
 
             finder_id = get_finder_user_id_for_match(match_id)
             if finder_id:
@@ -1383,6 +1463,13 @@ def admin_update_match():
             with open(filepath, 'w') as f:
                 for m in matches:
                     f.write(json.dumps(m) + "\n")
+
+            if new_status == 'resolved':
+                notification_service.update_match_notifications(match_id, match_state='verified')
+            elif new_status == 'approved':
+                notification_service.update_match_notifications(match_id, match_state='pending')
+            elif new_status == 'rejected':
+                notification_service.update_match_notifications(match_id, match_state='resolved')
                     
             # Log the admin action
             action_log = {

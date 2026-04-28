@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "836073386273",
+    "project_id": "campusfinder-11cbe",
+    "storage_bucket": "campusfinder-11cbe.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:836073386273:android:d457283bbca2fc2ff0ce60",
+        "android_client_info": {
+          "package_name": "com.campusfinder.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "836073386273-jpuf11d55bjdt1sssmf11ed3lh5th6b4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.campusfinder.app",
+            "certificate_hash": "6a0d1772affb545cfc25bc95baf1cf671306e50a"
+          }
+        },
+        {
+          "client_id": "836073386273-siu64ajjr31dibjgpmh8v5jc7scue9c6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLbr3-P6aXhhY-UaqhdpTQeUlQBP01IOg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "836073386273-siu64ajjr31dibjgpmh8v5jc7scue9c6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

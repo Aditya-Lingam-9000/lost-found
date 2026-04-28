@@ -1,0 +1,133 @@
+
+/* =====================================================================
+   MD3 GLOBAL COMPATIBILITY OVERRIDES (FIX)
+   Ensuring all components, cards, forms, and pages respect 
+   the Material You light/dark/color themes.
+====================================================================== */
+
+/* 1. Global Surface & Background Reset */
+body, .admin-page, .home8-bg-fixed, .home8-bg-3d-scene, .admin-main, .container, main, section, article {
+  background-color: var(--md-sys-color-background) !important;
+  color: var(--md-sys-color-on-background) !important;
+}
+
+/* Fix text and subtext visibility */
+[class*="text-gray-"], [class*="text-muted"], .text-muted, .settings-desc, .admin-label {
+  color: var(--md-sys-color-on-surface-variant) !important;
+}
+
+h1, h2, h3, h4, h5, h6, .brand, .page-gradient-title, .home8-text-accent {
+  color: var(--md-sys-color-primary) !important;
+  background: none !important;
+  -webkit-text-fill-color: initial !important;
+  text-shadow: none !important;
+}
+
+/* 2. Form Inputs (Inputs, Textareas, Selects) */
+input, textarea, select {
+  background-color: var(--md-sys-color-surface) !important;
+  color: var(--md-sys-color-on-surface) !important;
+  border: 1px solid var(--md-sys-color-outline) !important;
+  border-radius: var(--md-sys-border-radius-sm) !important;
+  padding: 16px !important;
+}
+input:focus, textarea:focus, select:focus {
+  border-color: var(--md-sys-color-primary) !important;
+  border-width: 2px !important;
+  outline: none !important;
+  box-shadow: 0 0 0 3px var(--md-sys-color-primary-container) !important;
+}
+input::placeholder, textarea::placeholder {
+  color: var(--md-sys-color-on-surface-variant) !important;
+}
+
+/* Remove hardcoded backgrounds from icons & adornments */
+[class*="bg-gray-"], [class*="bg-["] {
+  background-color: var(--md-sys-color-surface-variant) !important;
+}
+
+/* 3. Cards, Modals, and Elevated Surfaces */
+.card, .glass-card, .auth-card, .admin-match-card, .admin-stat-card, .home8-glass-card, .modal-content, .settings-card, .md-segmented-control {
+  background-color: var(--md-sys-color-surface) !important;
+  color: var(--md-sys-color-on-surface) !important;
+  border: 1px solid var(--md-sys-color-surface-variant) !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+  border-radius: var(--md-sys-border-radius-md) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* 4. Navigations & App Bars */
+.nav, .admin-nav, .mobile-bottom-nav, .top-bar {
+  background-color: var(--md-sys-color-surface) !important;
+  color: var(--md-sys-color-on-surface) !important;
+  border: none !important;
+  border-top: 1px solid var(--md-sys-color-surface-variant) !important;
+  border-bottom: 1px solid var(--md-sys-color-surface-variant) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+.mobile-bottom-nav a {
+  color: var(--md-sys-color-on-surface-variant) !important;
+}
+.mobile-bottom-nav a.active {
+  color: var(--md-sys-color-primary) !important;
+}
+.bottom-nav-icon {
+  fill: currentColor !important;
+  stroke: currentColor !important;
+}
+
+/* 5. Buttons and Chips */
+.btn, .btn-primary, .auth-btn, .admin-signout-btn, .home8-btn-primary {
+  background-color: var(--md-sys-color-primary) !important;
+  color: var(--md-sys-color-on-primary) !important;
+  border: none !important;
+  border-radius: var(--md-sys-border-radius-xl) !important;
+  font-weight: 500 !important;
+  padding: 12px 24px !important;
+  transition: opacity 0.2s ease;
+}
+.btn:hover, .btn-primary:hover, .auth-btn:hover {
+  opacity: 0.9 !important;
+  transform: translateY(-1px);
+}
+
+.btn-secondary, .home8-btn-outline {
+  background-color: transparent !important;
+  color: var(--md-sys-color-primary) !important;
+  border: 1px solid var(--md-sys-color-outline) !important;
+  border-radius: var(--md-sys-border-radius-xl) !important;
+}
+.btn-secondary:hover, .home8-btn-outline:hover {
+  background-color: var(--md-sys-color-primary-container) !important;
+}
+
+.badge, .admin-status-chip {
+  background-color: var(--md-sys-color-secondary-container) !important;
+  color: var(--md-sys-color-on-secondary-container) !important;
+  border: none !important;
+  font-weight: 500 !important;
+  border-radius: var(--md-sys-border-radius-sm) !important;
+}
+
+/* Eliminate neon/glow shadows and orange lines */
+* {
+  box-shadow: none; /* override specific box shadows unless they match above */
+}
+
+.md-elevation-1 {
+  box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Prevent inputs from turning black on dark mode, ensuring pure surface mapping */
+[data-theme='dark'] input, body.theme-dark input {
+  background-color: var(--md-sys-color-surface) !important;
+}
+
+
+.home8-logo-text, .home8-logo-accent { color: var(--md-sys-color-primary) !important; }
+.home8-btn { background-color: var(--md-sys-color-primary) !important; color: var(--md-sys-color-on-primary) !important; border: none !important; border-radius: var(--md-sys-border-radius-xl) !important; font-weight: 500 !important; padding: 12px 24px !important; }
+.full-screen-loader{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;background:var(--md-sys-color-background);opacity:0.95;backdrop-filter:blur(10px);animation:fadeIn 0.3s ease-out forwards;}
+.spinner-ring{width:48px;height:48px;border:4px solid var(--md-sys-color-surface-variant);border-top:4px solid var(--md-sys-color-primary);border-radius:50%;animation:mdSpin 1s cubic-bezier(0.5,0,0.5,1) infinite;}
+@keyframes mdSpin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}

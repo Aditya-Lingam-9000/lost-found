@@ -1,19 +1,39 @@
+import { Capacitor } from '@capacitor/core';
 import { initializeApp } from 'firebase/app';
-import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithRedirect } from 'firebase/auth';
+import {
+  getAuth,
+  initializeAuth,
+  indexedDBLocalPersistence,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signInWithRedirect,
+  getRedirectResult,
+} from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCJzw-Ckw6X2xkqxIKYgVVhkCUryJJxQV4",
-  authDomain: "lost-found-ba268.firebaseapp.com",
-  projectId: "lost-found-ba268",
-  storageBucket: "lost-found-ba268.firebasestorage.app",
-  messagingSenderId: "353057848015",
-  appId: "1:353057848015:web:dacd7d288c2378afdb95ba",
-  measurementId: "G-YBPYSYZQ9D"
+  apiKey: "AIzaSyDLbr3-P6aXhhY-UaqhdpTQeUlQBP01IOg",
+  authDomain: "campusfinder-11cbe.firebaseapp.com",
+  projectId: "campusfinder-11cbe",
+  storageBucket: "campusfinder-11cbe.firebasestorage.app",
+  messagingSenderId: "836073386273",
+  appId: "1:836073386273:android:d457283bbca2fc2ff0ce60"
 };
 
 const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app);
+
+export const auth = Capacitor.isNativePlatform()
+  ? (() => {
+      try {
+        return initializeAuth(app, {
+          persistence: indexedDBLocalPersistence,
+        });
+      } catch (error) {
+        return getAuth(app);
+      }
+    })()
+  : getAuth(app);
+
 export const provider = new GoogleAuthProvider();
 export const db = getFirestore(app);
-export { signInWithPopup, signInWithRedirect };
+export { signInWithPopup, signInWithRedirect, getRedirectResult };

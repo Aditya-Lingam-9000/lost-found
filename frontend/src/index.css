@@ -1,67 +1,97 @@
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
+/* Google Android Material Design 3 (Material You) Theme Base */
 :root {
-  /* Tropical Punch Colors */
-  --color-orange: #FF8243;
-  --color-pink: #FF6B7A;
-  --color-yellow: #FCE883;
-  --color-teal: #0694D4;
+  /* Default fallbacks / system default */
+  --md-sys-font-family: 'Roboto', sans-serif;
+  --md-sys-border-radius-xs: 8px;
+  --md-sys-border-radius-sm: 12px;
+  --md-sys-border-radius-md: 16px;
+  --md-sys-border-radius-lg: 24px;
+  --md-sys-border-radius-xl: 32px;
   
-  /* Primary accent rotation */
-  --primary: #FF8243;
-  --primary-strong: #E56D2E;
-  --secondary: #FF6B7A;
-  --warning: #FCE883;
-  --success: #0694D4;
-  --danger: #FF6B7A;
+  /* Overrides for existing legacy variables to map to Material You */
+  --font-family-base: var(--md-sys-font-family);
+  --radius-sm: var(--md-sys-border-radius-sm);
+  --radius-md: var(--md-sys-border-radius-md);
+  --radius-lg: var(--md-sys-border-radius-lg);
   
-  /* Background & glass */
-  --bg-page: #0a0e27;
-  --bg-elevated: #1a1f3a;
-  --bg-alt: #242d4f;
-  --bg-dark: rgba(255, 255, 255, 0.04);
-  --glass: rgba(255, 255, 255, 0.1);
-  --glass-strong: rgba(255, 255, 255, 0.15);
-  --glass-light: rgba(255, 255, 255, 0.08);
+  /* Default theme is Ocean Blue Light */
+  --md-sys-color-primary: #0061a4;
+  --md-sys-color-on-primary: #ffffff;
+  --md-sys-color-primary-container: #d1e4ff;
+  --md-sys-color-on-primary-container: #001d36;
   
-  /* Text */
-  --text-main: #f8fafc;
-  --text-muted: #cbd5e1;
+  --md-sys-color-secondary: #535f70;
+  --md-sys-color-on-secondary: #ffffff;
+  --md-sys-color-secondary-container: #d7e3f7;
+  --md-sys-color-on-secondary-container: #101c2b;
   
-  /* Soft colors for backgrounds */
-  --primary-soft: rgba(255, 130, 67, 0.15);
-  --primary-soft-2: rgba(255, 130, 67, 0.25);
-  --secondary-soft: rgba(255, 107, 122, 0.15);
-  --warning-soft: rgba(252, 232, 131, 0.15);
-  --success-soft: rgba(6, 148, 212, 0.15);
+  --md-sys-color-background: #fdfcff;
+  --md-sys-color-on-background: #1a1c1e;
+  --md-sys-color-surface: #fdfcff;
+  --md-sys-color-on-surface: #1a1c1e;
+  --md-sys-color-surface-variant: #dfe2eb;
+  --md-sys-color-on-surface-variant: #42474e;
   
-  /* Enhanced glass glow effects */
-  --glass-glow: rgba(255, 130, 67, 0.3);
-  --glass-glow-pink: rgba(255, 107, 122, 0.25);
-  --glass-glow-teal: rgba(6, 148, 212, 0.3);
+  --md-sys-color-error: #ba1a1a;
+  --md-sys-color-outline: #73777f;
   
-  /* Borders */
-  --border: rgba(255, 255, 255, 0.12);
-  --border-strong: rgba(255, 255, 255, 0.24);
-  --border-glow: rgba(255, 130, 67, 0.4);
-  
-  /* Minimal shadows */
-  --shadow-sm: none;
-  --shadow-md: none;
-  --shadow-lg: none;
-  --shadow-xl: none;
-  
-  /* Glow effects */
-  --glow-orange: 0 0 20px rgba(255, 130, 67, 0.4);
-  --glow-pink: 0 0 20px rgba(255, 107, 122, 0.35);
-  --glow-teal: 0 0 20px rgba(6, 148, 212, 0.4);
-  --glow-yellow: 0 0 20px rgba(252, 232, 131, 0.3);
-  
-  /* Border radius */
-  --radius-sm: 12px;
-  --radius-md: 18px;
-  --radius-lg: 26px;
+  /* Legacy mapped */
+  --primary: var(--md-sys-color-primary);
+  --primary-strong: var(--md-sys-color-primary);
+  --bg-page: var(--md-sys-color-background);
+  --bg-elevated: var(--md-sys-color-surface);
+  --bg-alt: var(--md-sys-color-surface-variant);
+  --text-main: var(--md-sys-color-on-background);
+  --text-muted: var(--md-sys-color-on-surface-variant);
+  --border: var(--md-sys-color-outline);
+  --border-glow: transparent;
+  --glass: transparent;
   --nav-height: 74px;
+}
+
+/* Material You Light Theme variants */
+body.theme-light.color-blue {
+  --md-sys-color-primary: #0061A4; --md-sys-color-primary-container: #D1E4FF;
+}
+body.theme-light.color-green {
+  --md-sys-color-primary: #006D42; --md-sys-color-primary-container: #92F7BC;
+}
+body.theme-light.color-purple {
+  --md-sys-color-primary: #6750A4; --md-sys-color-primary-container: #EADDFF;
+}
+body.theme-light.color-orange {
+  --md-sys-color-primary: #B3261E; --md-sys-color-primary-container: #FFDAD6;
+}
+body.theme-light.color-red {
+  --md-sys-color-primary: #9A2500; --md-sys-color-primary-container: #FFDBD1;
+}
+
+/* Material You Dark Theme variants */
+body.theme-dark {
+  --md-sys-color-background: #1A1C1E;
+  --md-sys-color-on-background: #E2E2E6;
+  --md-sys-color-surface: #1A1C1E;
+  --md-sys-color-on-surface: #E2E2E6;
+  --md-sys-color-surface-variant: #42474E;
+  --md-sys-color-on-surface-variant: #C3C7CF;
+  --md-sys-color-outline: #8C9199;
+}
+body.theme-dark.color-blue {
+  --md-sys-color-primary: #9ECAFF; --md-sys-color-primary-container: #00497D;
+}
+body.theme-dark.color-green {
+  --md-sys-color-primary: #76DAA1; --md-sys-color-primary-container: #005230;
+}
+body.theme-dark.color-purple {
+  --md-sys-color-primary: #D0BCFF; --md-sys-color-primary-container: #4F378B;
+}
+body.theme-dark.color-orange {
+  --md-sys-color-primary: #FFB4AB; --md-sys-color-primary-container: #93000A;
+}
+body.theme-dark.color-red {
+  --md-sys-color-primary: #FFB5A0; --md-sys-color-primary-container: #771A00;
 }
 
 * {
@@ -72,60 +102,38 @@
 
 html {
   scroll-behavior: smooth;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 body {
   min-height: 100vh;
-  background: #000000;
-  color: var(--text-main);
-  font-family: 'Manrope', sans-serif;
+  background: var(--md-sys-color-background);
+  color: var(--md-sys-color-on-background);
+  font-family: var(--md-sys-font-family);
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-.brand,
-.hero-title {
-  font-family: 'Sora', sans-serif;
+/* Override previous headings */
+h1, h2, h3, h4, h5, h6, .brand, .hero-title {
+  font-family: var(--md-sys-font-family);
+  color: var(--md-sys-color-on-background);
+  background: none;
+  -webkit-text-fill-color: initial;
+  text-shadow: none;
+  font-weight: 500;
   letter-spacing: -0.02em;
-  color: var(--text-main);
-  background: linear-gradient(
-    115deg,
-    #fff7cc 0%,
-    #ffbe78 26%,
-    #ff7ba6 52%,
-    #79ddff 78%,
-    #fff7cc 100%
-  );
-  background-size: 240% 240%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: globalGradientFlow 4.8s ease-in-out infinite;
-  text-shadow: 0 0 12px rgba(255, 130, 67, 0.2);
-}
-
-@keyframes globalGradientFlow {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
 }
 
 a {
   text-decoration: none;
-  color: var(--primary);
-  transition: color 0.24s ease, text-shadow 0.24s ease;
+  color: var(--md-sys-color-primary);
+  transition: color 0.24s ease;
 }
-
 a:hover {
-  color: var(--primary-strong);
-  text-shadow: var(--glow-orange);
+  color: var(--md-sys-color-primary);
+  text-shadow: none;
 }
 
 button {
@@ -136,25 +144,101 @@ button {
   font-family: inherit;
 }
 
-input,
-textarea,
-select {
+/* Material You Input Fields */
+input, textarea, select {
   width: 100%;
-  padding: 12px 14px;
-  border-radius: var(--radius-sm);
-  border: 1px solid var(--border);
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(25px);
-  -webkit-backdrop-filter: blur(25px);
-  color: var(--text-main);
+  padding: 16px;
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--md-sys-color-outline);
+  background: var(--md-sys-color-surface);
+  color: var(--md-sys-color-on-surface);
   outline: none;
-  transition: all 0.25s ease;
-  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  font-size: 1rem;
 }
+input:focus, textarea:focus, select:focus {
+  border-color: var(--md-sys-color-primary);
+  border-width: 2px;
+  background: var(--md-sys-color-surface);
+  box-shadow: none;
+  padding: 15px;
+}
+
+/* Settings Page Styles */
+.settings-main { padding-top: 24px; padding-bottom: 90px; }
+.settings-card { margin-bottom: 16px; padding: 20px; }
+.settings-section-title { color: var(--md-sys-color-primary); font-size: 1.1rem; margin-bottom: 20px; }
+.settings-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 16px; }
+.settings-info { display: flex; flex-direction: column; flex: 1; }
+.settings-label { font-size: 1rem; font-weight: 500; color: var(--text-main); }
+.settings-desc { font-size: 0.85rem; color: var(--text-muted); margin-top: 4px; }
+
+/* Segmented Control */
+.md-segmented-control { display: flex; border: 1px solid var(--border); border-radius: 999px; overflow: hidden; background: var(--bg-elevated); }
+.md-segmented-control button { padding: 10px 20px; font-weight: 500; flex: 1; border-right: 1px solid var(--border); color: var(--text-main); transition: 0.2s; }
+.md-segmented-control button:last-child { border-right: none; }
+.md-segmented-control button.active { background: var(--md-sys-color-primary-container); color: var(--md-sys-color-on-primary-container); }
+
+/* Color Swatches */
+.color-swatches { display: flex; gap: 12px; flex-wrap: wrap; }
+.color-swatch { width: 44px; height: 44px; border-radius: 50%; border: 3px solid transparent; cursor: pointer; transition: 0.2s transform; box-shadow: 0 2px 4px rgba(0,0,0,0.15); }
+.color-swatch.selected { border-color: var(--text-main); transform: scale(1.1); box-shadow: 0 4px 8px rgba(0,0,0,0.3); }
+
+/* Grid Toggles */
+.settings-toggles-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+.settings-toggle-row { display: flex; justify-content: space-between; align-items: center; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+.md-switch-label { font-size: 0.95rem; font-weight: 500; color: var(--text-main); text-transform: capitalize; margin: 0; }
+
+/* Material Switch */
+.md-switch { position: relative; display: inline-block; width: 52px; height: 32px; flex-shrink: 0; }
+.md-switch input { opacity: 0; width: 0; height: 0; }
+.md-slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: var(--md-sys-color-surface-variant); border: 2px solid var(--border); transition: .3s; border-radius: 34px; }
+.md-slider:before { position: absolute; content: ""; height: 20px; width: 20px; left: 4px; bottom: 4px; background-color: var(--text-muted); transition: .3s; border-radius: 50%; }
+.md-switch input:checked + .md-slider { background-color: var(--md-sys-color-primary); border-color: var(--md-sys-color-primary); }
+.md-switch input:checked + .md-slider:before { transform: translateX(20px); background-color: var(--md-sys-color-on-primary); width: 24px; height: 24px; bottom: 2px; }
+
+/* Material Elevate & Cards */
+.glass-card, .card, .auth-card, .modal-content {
+  border: 1px solid var(--md-sys-color-outline);
+  border-radius: var(--radius-md);
+  background: var(--md-sys-color-surface);
+  color: var(--md-sys-color-on-surface);
+  backdrop-filter: none; -webkit-backdrop-filter: none;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+  position: relative;
+}
+.glass-card::before { display: none; }
+.card:hover, .glass-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1), 0 2px 4px rgba(0,0,0,0.1);
+  border-color: var(--md-sys-color-primary);
+}
+
+/* Material Buttons */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 100px; padding: 10px 24px; font-weight: 500; letter-spacing: 0.1px;
+  font-family: var(--md-sys-font-family); transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);  
+}
+.btn::before { display: none; }
+.btn:active { transform: scale(0.98); }
+.btn-primary { background: var(--md-sys-color-primary); color: var(--md-sys-color-on-primary); border: none; }
+.btn-primary:hover { background: var(--md-sys-color-primary); box-shadow: 0 2px 4px rgba(0,0,0,0.2), inset 0 0 0 100px rgba(255,255,255,0.15); transform: translateY(-1px); }
+.btn-secondary { background: transparent; color: var(--md-sys-color-primary); border: 1px solid var(--md-sys-color-outline); box-shadow: none; }
+.btn-secondary:hover { background: rgba(0,0,0,0.05); border-color: var(--md-sys-color-primary); transform: translateY(-1px); }
+
+/* Material Bottom Nav */
+.mobile-bottom-nav { background: var(--md-sys-color-surface) !important; border-top: 1px solid var(--border) !important; backdrop-filter: none !important; box-shadow: 0 -1px 3px rgba(0,0,0,0.05) !important; }
+.bottom-nav-item { color: var(--text-muted) !important; }
+.bottom-nav-item.active { color: var(--md-sys-color-on-secondary-container) !important; background: transparent !important; }
+.bottom-nav-item.active .bottom-nav-icon { background: var(--md-sys-color-secondary-container) !important; border-color: transparent !important; color: var(--md-sys-color-on-secondary-container) !important; box-shadow: none !important; padding: 4px 16px; border-radius: 16px; width: auto; height: auto; margin-bottom: 4px; }
+.bottom-nav-item.active .bottom-nav-icon svg { stroke: currentColor; fill: currentColor; }
 
 input::placeholder,
 textarea::placeholder {
-  color: rgba(203, 213, 225, 0.5);
+  color: var(--text-muted);
 }
 
 input:focus,
@@ -3762,6 +3846,9 @@ body {
 
   .modal-overlay {
     padding: 14px;
+    background: rgba(3, 7, 20, 0.88);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
   }
 
   .modal-content {
@@ -3826,9 +3913,9 @@ body {
     justify-content: center;
     align-items: flex-start;
     overflow-y: auto;
-    background: rgba(3, 7, 20, 0.72);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    background: rgba(3, 7, 20, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
   }
 
   #report-forms-container .form-container {
@@ -3847,7 +3934,12 @@ body {
     overflow: auto;
     border-radius: 16px;
     margin: 0;
-    padding: 18px;
+    padding: 20px;
+    background: linear-gradient(135deg, 
+      rgba(255, 255, 255, 0.2) 0%,
+      rgba(255, 255, 255, 0.14) 100%);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
   }
 
   .report-type-grid {
@@ -3997,7 +4089,7 @@ body {
     justify-content: center;
     align-items: flex-start;
     padding: calc(8px + env(safe-area-inset-top)) 12px 12px;
-    background: rgba(3, 7, 20, 0.72);
+    background: rgba(3, 7, 20, 0.88);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
   }
@@ -4008,7 +4100,13 @@ body {
     max-height: calc(100vh - 20px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
     overflow: auto;
     border-radius: 16px;
-    padding: 16px;
+    padding: 18px;
+    background: linear-gradient(135deg, 
+      rgba(255, 255, 255, 0.2) 0%,
+      rgba(255, 255, 255, 0.14) 100%);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgba(255, 130, 67, 0.5);
   }
 
   #start-chat-btn {
@@ -4240,6 +4338,67 @@ body {
   .home8-scroll-indicator {
     display: none;
   }
+
+  /* Mobile glass visibility enhancements */
+  .glass-card,
+  .card,
+  .auth-card,
+  .modal-content {
+    background: linear-gradient(135deg, 
+      rgba(255, 255, 255, 0.18) 0%,
+      rgba(255, 255, 255, 0.12) 100%);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+  }
+
+  input,
+  textarea,
+  select {
+    background: rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+  }
+
+  input:focus,
+  textarea:focus,
+  select:focus {
+    background: rgba(255, 255, 255, 0.22);
+    box-shadow: 
+      inset 0 0 20px rgba(255, 130, 67, 0.2);
+  }
+
+  .nav {
+    background: linear-gradient(135deg, 
+      rgba(255, 255, 255, 0.15) 0%,
+      rgba(255, 255, 255, 0.1) 100%);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  .nav-link {
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(8px);
+  }
+
+  .btn-secondary {
+    background: linear-gradient(135deg,
+      rgba(255, 255, 255, 0.18),
+      rgba(255, 255, 255, 0.12)
+    );
+    backdrop-filter: blur(10px);
+  }
+
+  .badge {
+    background: linear-gradient(135deg,
+      rgba(255, 255, 255, 0.16),
+      rgba(255, 255, 255, 0.1)
+    );
+    backdrop-filter: blur(10px);
+  }
+
+  .glass-card::before {
+    background: radial-gradient(circle at 50% 0%, rgba(255, 130, 67, 0.15), transparent 70%);
+  }
 }
 
 @media (max-width: 430px) {
@@ -4284,3 +4443,830 @@ body {
   }
 }
 
+
+
+
+
+
+/* =====================================================================
+   MD3 GLOBAL COMPATIBILITY OVERRIDES (FIX)
+   Ensuring all components, cards, forms, and pages respect 
+   the Material You light/dark/color themes.
+====================================================================== */
+
+/* 1. Global Surface & Background Reset */
+body, .admin-page, .home8-bg-fixed, .home8-bg-3d-scene, .admin-main, .container, main, section, article {
+  background-color: var(--md-sys-color-background) !important;
+  color: var(--md-sys-color-on-background) !important;
+}
+
+/* Fix text and subtext visibility */
+[class*="text-gray-"], [class*="text-muted"], .text-muted, .settings-desc, .admin-label {
+  color: var(--md-sys-color-on-surface-variant) !important;
+}
+
+h1, h2, h3, h4, h5, h6, .brand, .page-gradient-title, .home8-text-accent {
+  color: var(--md-sys-color-primary) !important;
+  background: none !important;
+  -webkit-text-fill-color: initial !important;
+  text-shadow: none !important;
+}
+
+/* 2. Form Inputs (Inputs, Textareas, Selects) */
+input, textarea, select {
+  background-color: var(--md-sys-color-surface) !important;
+  color: var(--md-sys-color-on-surface) !important;
+  border: 1px solid var(--md-sys-color-outline) !important;
+  border-radius: var(--md-sys-border-radius-sm) !important;
+  padding: 16px !important;
+}
+input:focus, textarea:focus, select:focus {
+  border-color: var(--md-sys-color-primary) !important;
+  border-width: 2px !important;
+  outline: none !important;
+  box-shadow: 0 0 0 3px var(--md-sys-color-primary-container) !important;
+}
+input::placeholder, textarea::placeholder {
+  color: var(--md-sys-color-on-surface-variant) !important;
+}
+
+/* Remove hardcoded backgrounds from icons & adornments */
+[class*="bg-gray-"], [class*="bg-["] {
+  background-color: var(--md-sys-color-surface-variant) !important;
+}
+
+/* 3. Cards, Modals, and Elevated Surfaces */
+.card, .glass-card, .auth-card, .admin-match-card, .admin-stat-card, .home8-glass-card, .modal-content, .settings-card, .md-segmented-control {
+  background-color: var(--md-sys-color-surface) !important;
+  color: var(--md-sys-color-on-surface) !important;
+  border: 1px solid var(--md-sys-color-surface-variant) !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+  border-radius: var(--md-sys-border-radius-md) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* 4. Navigations & App Bars */
+.nav, .admin-nav, .mobile-bottom-nav, .top-bar {
+  background-color: var(--md-sys-color-surface) !important;
+  color: var(--md-sys-color-on-surface) !important;
+  border: none !important;
+  border-top: 1px solid var(--md-sys-color-surface-variant) !important;
+  border-bottom: 1px solid var(--md-sys-color-surface-variant) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+.mobile-bottom-nav a {
+  color: var(--md-sys-color-on-surface-variant) !important;
+}
+.mobile-bottom-nav a.active {
+  color: var(--md-sys-color-primary) !important;
+}
+.bottom-nav-icon {
+  fill: currentColor !important;
+  stroke: currentColor !important;
+}
+
+/* 5. Buttons and Chips */
+.btn, .btn-primary, .auth-btn, .admin-signout-btn, .home8-btn-primary {
+  background-color: var(--md-sys-color-primary) !important;
+  color: var(--md-sys-color-on-primary) !important;
+  border: none !important;
+  border-radius: var(--md-sys-border-radius-xl) !important;
+  font-weight: 500 !important;
+  padding: 12px 24px !important;
+  transition: opacity 0.2s ease;
+}
+.btn:hover, .btn-primary:hover, .auth-btn:hover {
+  opacity: 0.9 !important;
+  transform: translateY(-1px);
+}
+
+.btn-secondary, .home8-btn-outline {
+  background-color: transparent !important;
+  color: var(--md-sys-color-primary) !important;
+  border: 1px solid var(--md-sys-color-outline) !important;
+  border-radius: var(--md-sys-border-radius-xl) !important;
+}
+.btn-secondary:hover, .home8-btn-outline:hover {
+  background-color: var(--md-sys-color-primary-container) !important;
+}
+
+.badge, .admin-status-chip {
+  background-color: var(--md-sys-color-secondary-container) !important;
+  color: var(--md-sys-color-on-secondary-container) !important;
+  border: none !important;
+  font-weight: 500 !important;
+  border-radius: var(--md-sys-border-radius-sm) !important;
+}
+
+/* Eliminate neon/glow shadows and orange lines */
+* {
+  box-shadow: none; /* override specific box shadows unless they match above */
+}
+
+.md-elevation-1 {
+  box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Prevent inputs from turning black on dark mode, ensuring pure surface mapping */
+[data-theme='dark'] input, body.theme-dark input {
+  background-color: var(--md-sys-color-surface) !important;
+}
+
+
+
+/* =====================================================================
+   MD3 GLOBAL COMPATIBILITY OVERRIDES (FIX)
+   Ensuring all components, cards, forms, and pages respect 
+   the Material You light/dark/color themes.
+====================================================================== */
+
+/* 1. Global Surface & Background Reset */
+body, .admin-page, .home8-bg-fixed, .home8-bg-3d-scene, .admin-main, .container, main, section, article {
+  background-color: var(--md-sys-color-background) !important;
+  color: var(--md-sys-color-on-background) !important;
+}
+
+/* Fix text and subtext visibility */
+[class*="text-gray-"], [class*="text-muted"], .text-muted, .settings-desc, .admin-label {
+  color: var(--md-sys-color-on-surface-variant) !important;
+}
+
+h1, h2, h3, h4, h5, h6, .brand, .page-gradient-title, .home8-text-accent {
+  color: var(--md-sys-color-primary) !important;
+  background: none !important;
+  -webkit-text-fill-color: initial !important;
+  text-shadow: none !important;
+}
+
+/* 2. Form Inputs (Inputs, Textareas, Selects) */
+input, textarea, select {
+  background-color: var(--md-sys-color-surface) !important;
+  color: var(--md-sys-color-on-surface) !important;
+  border: 1px solid var(--md-sys-color-outline) !important;
+  border-radius: var(--md-sys-border-radius-sm) !important;
+  padding: 16px !important;
+}
+input:focus, textarea:focus, select:focus {
+  border-color: var(--md-sys-color-primary) !important;
+  border-width: 2px !important;
+  outline: none !important;
+  box-shadow: 0 0 0 3px var(--md-sys-color-primary-container) !important;
+}
+input::placeholder, textarea::placeholder {
+  color: var(--md-sys-color-on-surface-variant) !important;
+}
+
+/* Remove hardcoded backgrounds from icons & adornments */
+[class*="bg-gray-"], [class*="bg-["] {
+  background-color: var(--md-sys-color-surface-variant) !important;
+}
+
+/* 3. Cards, Modals, and Elevated Surfaces */
+.card, .glass-card, .auth-card, .admin-match-card, .admin-stat-card, .home8-glass-card, .modal-content, .settings-card, .md-segmented-control {
+  background-color: var(--md-sys-color-surface) !important;
+  color: var(--md-sys-color-on-surface) !important;
+  border: 1px solid var(--md-sys-color-surface-variant) !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+  border-radius: var(--md-sys-border-radius-md) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* 4. Navigations & App Bars */
+.nav, .admin-nav, .mobile-bottom-nav, .top-bar {
+  background-color: var(--md-sys-color-surface) !important;
+  color: var(--md-sys-color-on-surface) !important;
+  border: none !important;
+  border-top: 1px solid var(--md-sys-color-surface-variant) !important;
+  border-bottom: 1px solid var(--md-sys-color-surface-variant) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+.mobile-bottom-nav a {
+  color: var(--md-sys-color-on-surface-variant) !important;
+}
+.mobile-bottom-nav a.active {
+  color: var(--md-sys-color-primary) !important;
+}
+.bottom-nav-icon {
+  fill: currentColor !important;
+  stroke: currentColor !important;
+}
+
+/* 5. Buttons and Chips */
+.btn, .btn-primary, .auth-btn, .admin-signout-btn, .home8-btn-primary {
+  background-color: var(--md-sys-color-primary) !important;
+  color: var(--md-sys-color-on-primary) !important;
+  border: none !important;
+  border-radius: var(--md-sys-border-radius-xl) !important;
+  font-weight: 500 !important;
+  padding: 12px 24px !important;
+  transition: opacity 0.2s ease;
+}
+.btn:hover, .btn-primary:hover, .auth-btn:hover {
+  opacity: 0.9 !important;
+  transform: translateY(-1px);
+}
+
+.btn-secondary, .home8-btn-outline {
+  background-color: transparent !important;
+  color: var(--md-sys-color-primary) !important;
+  border: 1px solid var(--md-sys-color-outline) !important;
+  border-radius: var(--md-sys-border-radius-xl) !important;
+}
+.btn-secondary:hover, .home8-btn-outline:hover {
+  background-color: var(--md-sys-color-primary-container) !important;
+}
+
+.badge, .admin-status-chip {
+  background-color: var(--md-sys-color-secondary-container) !important;
+  color: var(--md-sys-color-on-secondary-container) !important;
+  border: none !important;
+  font-weight: 500 !important;
+  border-radius: var(--md-sys-border-radius-sm) !important;
+}
+
+/* Eliminate neon/glow shadows and orange lines */
+* {
+  box-shadow: none; /* override specific box shadows unless they match above */
+}
+
+.md-elevation-1 {
+  box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Prevent inputs from turning black on dark mode, ensuring pure surface mapping */
+[data-theme='dark'] input, body.theme-dark input {
+  background-color: var(--md-sys-color-surface) !important;
+}
+
+
+.home8-logo-text, .home8-logo-accent { color: var(--md-sys-color-primary) !important; }
+.home8-btn { background-color: var(--md-sys-color-primary) !important; color: var(--md-sys-color-on-primary) !important; border: none !important; border-radius: var(--md-sys-border-radius-xl) !important; font-weight: 500 !important; padding: 12px 24px !important; }
+
+/* =====================================================================
+   FINAL UI STABILIZATION LAYER
+   - Bridges missing legacy variables
+   - Fixes dark theme text/background contrast on all pages
+   - Upgrades loader and app opening animation visuals
+====================================================================== */
+
+:root {
+  --radius-xs: var(--md-sys-border-radius-xs);
+  --accent: var(--md-sys-color-primary);
+  --accent-bg: var(--md-sys-color-primary-container);
+  --accent-border: var(--md-sys-color-outline);
+  --social-bg: var(--md-sys-color-surface-variant);
+  --text-h: var(--md-sys-color-on-surface);
+  --danger: #b3261e;
+  --success: #006d42;
+  --warning: #8a4f00;
+  --secondary: #005b9b;
+  --primary-light: var(--md-sys-color-primary-container);
+  --bg-dark: var(--md-sys-color-surface-variant);
+  --shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+  --shadow-md: 0 14px 34px rgba(0, 0, 0, 0.18);
+  --glow-orange: none;
+  --i: 0;
+}
+
+body.theme-dark {
+  --danger: #ff8a80;
+  --success: #79d7aa;
+  --warning: #ffd08a;
+  --secondary: #9ecbff;
+  --primary-light: var(--md-sys-color-primary-container);
+  --bg-dark: #2a3038;
+  --shadow: 0 8px 18px rgba(0, 0, 0, 0.34);
+  --shadow-md: 0 16px 38px rgba(0, 0, 0, 0.45);
+}
+
+body.theme-dark {
+  background-color: var(--md-sys-color-background) !important;
+  color: var(--md-sys-color-on-background) !important;
+}
+
+body.theme-dark .card,
+body.theme-dark .glass-card,
+body.theme-dark .auth-card,
+body.theme-dark .modal-content,
+body.theme-dark .admin-stat-card,
+body.theme-dark .admin-match-card,
+body.theme-dark .match-list-item,
+body.theme-dark .settings-card,
+body.theme-dark .popup-confirm-card,
+body.theme-dark .popup-toast {
+  background: #20252d !important;
+  color: var(--md-sys-color-on-surface) !important;
+  border-color: #343a45 !important;
+}
+
+body.theme-dark :where(p, li, label, .settings-desc, .admin-item-location, .identity-chip, .match-mobile-hint, .popup-dismiss) {
+  color: var(--md-sys-color-on-surface-variant) !important;
+}
+
+body.theme-dark :where(h1, h2, h3, h4, h5, h6, .brand, .admin-item-title, .section-header h2) {
+  color: var(--md-sys-color-on-surface) !important;
+  text-shadow: none !important;
+}
+
+body.theme-dark .page-gradient-title,
+body.theme-dark .home8-text-accent,
+body.theme-dark .home8-logo-text,
+body.theme-dark .home8-logo-accent {
+  color: var(--md-sys-color-primary) !important;
+  background-image: none !important;
+  -webkit-text-fill-color: currentColor !important;
+}
+
+body.theme-dark .nav,
+body.theme-dark .admin-nav,
+body.theme-dark .mobile-bottom-nav {
+  background: #181c22 !important;
+  border-color: #313844 !important;
+}
+
+body.theme-dark .nav-link,
+body.theme-dark .admin-nav-link,
+body.theme-dark .bottom-nav-item,
+body.theme-dark .bottom-nav-label {
+  color: var(--md-sys-color-on-surface-variant) !important;
+}
+
+body.theme-dark .nav-link.active,
+body.theme-dark .bottom-nav-item.active,
+body.theme-dark .admin-brand {
+  color: var(--md-sys-color-primary) !important;
+}
+
+body.theme-dark .bottom-nav-item.active .bottom-nav-icon {
+  background: var(--md-sys-color-primary-container) !important;
+  color: var(--md-sys-color-on-primary-container) !important;
+}
+
+body.theme-dark input,
+body.theme-dark textarea,
+body.theme-dark select,
+body.theme-dark .form-control {
+  background: #252b34 !important;
+  color: var(--md-sys-color-on-surface) !important;
+  border-color: #4a5260 !important;
+}
+
+body.theme-dark input::placeholder,
+body.theme-dark textarea::placeholder {
+  color: #a9b2bf !important;
+}
+
+body.theme-dark input:focus,
+body.theme-dark textarea:focus,
+body.theme-dark select:focus,
+body.theme-dark .form-control:focus {
+  background: #2b323d !important;
+  border-color: var(--md-sys-color-primary) !important;
+  box-shadow: 0 0 0 3px rgba(158, 202, 255, 0.24) !important;
+}
+
+/* Premium loading animation */
+.full-screen-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 12000;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(158, 202, 255, 0.18), transparent 45%),
+    radial-gradient(circle at 80% 80%, rgba(118, 218, 161, 0.16), transparent 45%),
+    linear-gradient(160deg, var(--md-sys-color-background), var(--md-sys-color-surface));
+  animation: loaderFadeIn 240ms ease-out both;
+}
+
+.spinner-ring {
+  position: relative;
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  background:
+    conic-gradient(from 120deg,
+      transparent 0deg,
+      rgba(158, 202, 255, 0.18) 80deg,
+      var(--md-sys-color-primary) 230deg,
+      transparent 360deg);
+  animation: loaderSpin 1.25s linear infinite;
+}
+
+.spinner-ring::before,
+.spinner-ring::after {
+  content: "";
+  position: absolute;
+  inset: 10px;
+  border-radius: 50%;
+}
+
+.spinner-ring::before {
+  background: var(--md-sys-color-surface);
+}
+
+.spinner-ring::after {
+  inset: 2px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  animation: loaderPulse 1.5s ease-in-out infinite;
+}
+
+.loading-text {
+  margin-top: 14px;
+  font-size: 0.82rem;
+  letter-spacing: 0.22em;
+  font-weight: 600;
+  color: var(--md-sys-color-on-surface-variant) !important;
+  text-transform: uppercase;
+}
+
+@keyframes loaderFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes loaderSpin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes loaderPulse {
+  0%, 100% {
+    opacity: 0.38;
+    transform: scale(0.92);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1);
+  }
+}
+
+/* App opening animation (cold start only) */
+.app-opening-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 14000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: #070b11;
+  overflow: hidden;
+  animation: openingFadeIn 360ms ease-out both;
+}
+
+.app-opening-overlay.closing {
+  animation: openingFadeOut 500ms ease forwards;
+}
+
+.app-opening-backdrop-layer {
+  position: absolute;
+  inset: -25%;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(158, 202, 255, 0.24), transparent 44%),
+    radial-gradient(circle at 70% 65%, rgba(118, 218, 161, 0.2), transparent 44%),
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.08), transparent 54%);
+  filter: blur(8px);
+  animation: openingDrift 7s linear infinite;
+}
+
+.app-opening-pulse {
+  position: absolute;
+  width: min(72vw, 440px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 1px solid rgba(158, 202, 255, 0.22);
+}
+
+.app-opening-pulse.pulse-a {
+  animation: openingPulse 1.8s ease-out infinite;
+}
+
+.app-opening-pulse.pulse-b {
+  animation: openingPulse 1.8s ease-out 0.8s infinite;
+}
+
+.app-opening-core {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  display: grid;
+  place-items: center;
+}
+
+.app-opening-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid rgba(158, 202, 255, 0.42);
+}
+
+.app-opening-ring.ring-one {
+  inset: 0;
+  animation: openingRing 2.2s linear infinite;
+}
+
+.app-opening-ring.ring-two {
+  inset: 18px;
+  border-color: rgba(118, 218, 161, 0.44);
+  animation: openingRingReverse 1.5s linear infinite;
+}
+
+.app-opening-logo {
+  width: 82px;
+  height: 82px;
+  border-radius: 22px;
+  display: grid;
+  place-items: center;
+  font-size: 1.45rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--md-sys-color-on-primary);
+  background: linear-gradient(140deg, var(--md-sys-color-primary), #4c92d2);
+  box-shadow:
+    0 10px 24px rgba(0, 0, 0, 0.34),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.28);
+  animation: openingLogoPop 850ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.app-opening-title {
+  margin-top: 10px;
+  font-size: clamp(1.4rem, 5vw, 2rem);
+  letter-spacing: 0.02em;
+  color: #eaf3ff;
+  animation: openingTextIn 700ms ease 240ms both;
+}
+
+.app-opening-subtitle {
+  font-size: 0.86rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #9fb7d0;
+  animation: openingTextIn 700ms ease 360ms both;
+}
+
+@keyframes openingFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes openingFadeOut {
+  to { opacity: 0; visibility: hidden; }
+}
+
+@keyframes openingDrift {
+  from { transform: translate3d(0, 0, 0) rotate(0deg); }
+  to { transform: translate3d(-2%, -1%, 0) rotate(360deg); }
+}
+
+@keyframes openingPulse {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  45% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(1.42);
+    opacity: 0;
+  }
+}
+
+@keyframes openingRing {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes openingRingReverse {
+  to { transform: rotate(-360deg); }
+}
+
+@keyframes openingLogoPop {
+  from {
+    transform: scale(0.72);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes openingTextIn {
+  from {
+    transform: translateY(14px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.bottom-nav-icon {
+  position: relative;
+}
+
+.nav-badge {
+  position: absolute;
+  top: -10px;
+  right: -12px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--md-sys-color-on-error);
+  background: var(--md-sys-color-error);
+  box-shadow: 0 0 0 2px var(--md-sys-color-surface);
+}
+
+.notifications-page {
+  display: grid;
+  gap: 18px;
+  padding-bottom: 110px;
+}
+
+.notifications-header {
+  align-items: flex-start;
+}
+
+.notifications-summary {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.notifications-summary h3 {
+  margin: 4px 0 0;
+  font-size: clamp(2rem, 6vw, 2.7rem);
+}
+
+.notifications-list {
+  display: grid;
+  gap: 14px;
+}
+
+.notification-card {
+  display: grid;
+  gap: 14px;
+}
+
+.notification-card.selected {
+  border-color: color-mix(in srgb, var(--md-sys-color-primary) 60%, transparent);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--md-sys-color-primary) 36%, transparent);
+}
+
+.notification-card-disabled {
+  opacity: 0.58;
+}
+
+.notification-card-head,
+.notification-score-row,
+.notification-card-actions,
+.notification-detail-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.notification-card-head {
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.notification-main-copy,
+.notification-detail-copy,
+.notification-detail p {
+  margin: 0;
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.notification-score-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--md-sys-color-primary) 14%, var(--md-sys-color-surface));
+  color: var(--md-sys-color-on-surface);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.notification-detail {
+  display: grid;
+  gap: 12px;
+}
+
+.notifications-empty {
+  text-align: center;
+}
+
+.biometric-gate {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background:
+    radial-gradient(circle at top, rgba(67, 112, 160, 0.28), transparent 46%),
+    linear-gradient(180deg, rgba(8, 15, 28, 0.96), rgba(8, 15, 28, 0.98));
+  backdrop-filter: blur(18px);
+}
+
+.biometric-gate-card {
+  width: min(440px, 100%);
+  text-align: center;
+}
+
+.biometric-card {
+  width: min(440px, 100%);
+  text-align: center;
+  display: grid;
+  gap: 12px;
+}
+
+.biometric-icon {
+  width: 76px;
+  height: 76px;
+  margin: 0 auto;
+  border-radius: 24px;
+  display: grid;
+  place-items: center;
+  font-size: 2rem;
+  color: var(--md-sys-color-primary);
+  background: color-mix(in srgb, var(--md-sys-color-primary) 14%, var(--md-sys-color-surface));
+}
+
+.biometric-card h2,
+.biometric-card p {
+  margin: 0;
+}
+
+.biometric-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 6px;
+  flex-wrap: wrap;
+}
+
+.biometric-gate-title {
+  margin: 14px 0 8px;
+  font-size: clamp(1.55rem, 5vw, 2rem);
+}
+
+.biometric-gate-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 18px;
+  flex-wrap: wrap;
+}
+
+.biometric-gate-icon {
+  width: 76px;
+  height: 76px;
+  border-radius: 24px;
+  display: grid;
+  place-items: center;
+  margin: 0 auto;
+  color: var(--md-sys-color-primary);
+  background: color-mix(in srgb, var(--md-sys-color-primary) 14%, var(--md-sys-color-surface));
+}
+
+.biometric-gate-icon svg {
+  width: 36px;
+  height: 36px;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  fill: none;
+}
+
+@media (max-width: 720px) {
+  .notifications-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .notification-card-head,
+  .notification-card-actions,
+  .notification-detail-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .notification-card-actions .btn,
+  .notification-detail-actions .btn {
+    width: 100%;
+  }
+}
